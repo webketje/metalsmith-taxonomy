@@ -5,6 +5,10 @@
   "homepage": "https://github.com/webketje/metalsmith-taxonomy#README.md",
   "bugs": "https://github.com/webketje/metalsmith-taxonomy/issues",
   "license": "LGPL-3.0-or-later",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/webketje/metalsmith-taxonomy.git"
+  },
   "keywords": [
     "metalsmith",
     "plugin",
