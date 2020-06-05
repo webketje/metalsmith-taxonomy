@@ -3,9 +3,9 @@ var devserver = require('metalsmith-express')();
 var markdown = require('metalsmith-markdown')();
 var taxonomy = require('metalsmith-taxonomy')({
   pattern: 'pages/posts/*.{md,html}',
-  pages: ['index','taxonomy','term'],
+  pages: ['index', 'taxonomy', 'term'],
   namespace: 'blog',
-  taxonomies: ['category','tags']
+  taxonomies: ['category', 'tags']
 });
 
 var metadata = { sitename: 'My blog' };
@@ -37,14 +37,14 @@ var layouts = require('metalsmith-layouts')({
   pattern: '**/*.{md,html}',
   engineOptions: {
     helpers: {
-      i18n: function(lookup, plural) {
+      i18n: function (lookup, plural) {
         var dictionary = {
-          'tags': 'tag',
+          tags: 'tag',
           'tags:pl': 'tags',
-          'category': 'category',
+          category: 'category',
           'category:pl': 'categories'
         };
-        return dictionary[lookup + (plural === 'pl'? ':pl' : '')];
+        return dictionary[lookup + (plural === 'pl' ? ':pl' : '')];
       }
     }
   }
@@ -71,7 +71,7 @@ var permalinks = require('metalsmith-permalinks')({
     {
       match: { type: 'taxonomy:term' },
       pattern: 'blog/:taxonomy/:term'
-    },
+    }
   ]
 });
 
@@ -90,5 +90,5 @@ metalsmith
   .use(devserver)
   .build(function (err, files) {
     if (err) throw err;
-    console.log('Build successful!')
+    console.log('Build successful!');
   });

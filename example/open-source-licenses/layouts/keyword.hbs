@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>All {{ term }} licenses | {{ sitename }}</title>
   </head>
   <body>
-    <h1>Licenses that are {{ term }} <small>({{ lookup (lookup (lookup taxonomies taxonomy) term) 'length' }})</small></h1>
-    <p><small><a href="/licenses">&lt;- filter overview</a></small></p>
+    <h1>
+      Licenses that are {{ term }}
+      <small>
+        ({{ lookup (lookup (lookup taxonomies taxonomy) term) 'length' }})
+      </small>
+    </h1>
+    <p>
+      <small><a href="/licenses">&lt;- filter overview</a></small>
+    </p>
     <ul>
       {{#each (lookup (lookup taxonomies taxonomy) term) }}
       <li><a href="/{{ path }}">{{ name }}</a></li>

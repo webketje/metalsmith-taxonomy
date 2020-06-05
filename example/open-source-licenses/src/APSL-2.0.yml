@@ -3,7 +3,7 @@ id: APSL-2.0
 identifiers:
   - identifier: APSL-2.0
     scheme: SPDX
-  - identifier: "License :: OSI Approved :: Apple Public Source License"
+  - identifier: 'License :: OSI Approved :: Apple Public Source License'
     scheme: Trove
 links:
   - note: OSI Page
@@ -20,3 +20,4 @@ text:
     title: HTML
     url: https://opensource.org/licenses/APSL-2.0
 ---
+

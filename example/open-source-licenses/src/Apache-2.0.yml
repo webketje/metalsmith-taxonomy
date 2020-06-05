@@ -5,7 +5,7 @@ identifiers:
     scheme: DEP5
   - identifier: Apache-2.0
     scheme: SPDX
-  - identifier: "License :: OSI Approved :: Apache Software License"
+  - identifier: 'License :: OSI Approved :: Apache Software License'
     scheme: Trove
 links:
   - note: tl;dr legal
@@ -26,3 +26,4 @@ text:
     title: HTML
     url: https://www.apache.org/licenses/LICENSE-2.0
 ---
+

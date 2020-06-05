@@ -5,7 +5,7 @@ var taxonomy = require('metalsmith-taxonomy')({
   pattern: '**/*.yml',
   pages: ['taxonomy', 'term'],
   taxonomies: {
-    filtered: 'keywords',
+    filtered: 'keywords'
   }
 });
 var metadata = { sitename: 'Open-source licenses' };
@@ -22,7 +22,7 @@ var filemetadata = require('metalsmith-filemetadata')([
     metadata: {
       layout: 'keywords.hbs'
     }
-  },
+  }
 ]);
 
 var layouts = require('metalsmith-layouts')({
@@ -50,7 +50,7 @@ var permalinks = require('metalsmith-permalinks')({
       pattern: 'licenses'
     }
   ]
-})
+});
 
 metalsmith
   .clean(true)

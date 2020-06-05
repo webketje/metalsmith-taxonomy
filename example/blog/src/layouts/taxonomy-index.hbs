@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>{{ namespace }} | {{ sitename }}</title>
   </head>
   <body>
     <h1>{{ namespace }}</h1>
-    <p><small><a href="/{{namespace}}">Back to {{ namespace }} home</a></small></p>
+    <p>
+      <small><a href="/{{namespace}}">Back to {{ namespace }} home</a></small>
+    </p>
     {{#each taxonomies as |entry taxonomy| }}
-      <h2>By {{ i18n taxonomy }}</h2>
-      {{#each entry as |entry term|}}
-      <div>
-        <a href="/{{ ../../namespace }}/{{ taxonomy }}/{{ term }}">All posts for {{ term }}</a>
-      </div>
-      {{/each}}
-    {{/each}}
-    </ul>
+    <h2>By {{ i18n taxonomy }}</h2>
+    {{#each entry as |entry term|}}
+    <div>
+      <a href="/{{ ../../namespace }}/{{ taxonomy }}/{{ term }}">All posts for {{ term }}</a>
+    </div>
+    {{/each}} {{/each}}
   </body>
 </html>

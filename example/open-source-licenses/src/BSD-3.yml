@@ -5,7 +5,7 @@ identifiers:
     scheme: DEP5
   - identifier: BSD-3-Clause
     scheme: SPDX
-  - identifier: "License :: OSI Approved :: BSD License"
+  - identifier: 'License :: OSI Approved :: BSD License'
     scheme: Trove
 links:
   - note: Wikipedia Page
@@ -30,3 +30,4 @@ text:
     title: HTML
     url: https://opensource.org/licenses/BSD-3-Clause
 ---
+

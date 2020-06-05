@@ -1,12 +1,22 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>All {{ term }} posts | {{ sitename }}</title>
   </head>
   <body>
-    <h1>Posts for {{ i18n taxonomy }} : {{ term }} <small>({{ lookup (lookup (lookup taxonomies taxonomy) term) 'length' }})</small></h1>
-    <p><small><a href="/{{namespace}}/{{taxonomy}}">Back to {{ i18n taxonomy 'pl' }} overview</a></small></p>
+    <h1>
+      Posts for {{ i18n taxonomy }} : {{ term }}
+      <small
+        >({{ lookup (lookup (lookup taxonomies taxonomy) term) 'length'
+        }})</small
+      >
+    </h1>
+    <p>
+      <small>
+        <a href="/{{namespace}}/{{taxonomy}}">Back to {{ i18n taxonomy 'pl' }} overview</a>
+      </small>
+    </p>
     <ul>
       {{#each (lookup (lookup taxonomies taxonomy) term) }}
       <li><a href="/{{ path }}">{{ title }}</a></li>

@@ -3,7 +3,7 @@ id: AFL-3.0
 identifiers:
   - identifier: AFL-3.0
     scheme: SPDX
-  - identifier: "License :: OSI Approved :: Academic Free License (AFL)"
+  - identifier: 'License :: OSI Approved :: Academic Free License (AFL)'
     scheme: Trove
 links:
   - note: OSI Page
@@ -20,3 +20,4 @@ text:
     title: HTML
     url: https://opensource.org/licenses/AFL-3.0
 ---
+
