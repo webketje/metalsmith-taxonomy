@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{{ sitename }}</title>
+  </head>
+  <body>
+    <h1>{{ sitename }}</h1>
+
+    <p>Pick one or view a <a href="/licenses">filtered list</a></p>
+    <ul>
+    {{#each licenses }}
+        <li><a href="/{{ path }}">{{ name }}</a></li>
+    {{/each}}
+    </ul>
+  </body>
+</html>

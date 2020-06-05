@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{{ name }} | {{ sitename }}</title>
+  </head>
+  <body>
+    <h1>{{ name }}</h1>
+    <p><small><a href="/">&lt;- all licenses</a></small></p>
+    <div class="keywords">
+    This license is:
+    {{#each keywords }}
+       <a href="/licenses/filtered/{{ this }}" title="View all {{ this }} licenses">{{ this }}</a>
+    {{/each}}
+    </div>
+    <hr>
+
+    <h3>Useful links</h3>
+    <ul>
+    {{#each links }}
+      <li><a href="{{ url }}">{{ note }}</a></li>
+    {{/each}}
+    </ul>
+  </body>
+</html>

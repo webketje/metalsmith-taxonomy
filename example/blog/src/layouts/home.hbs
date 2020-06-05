@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{{ title }} | {{ sitename }}</title>
+  </head>
+  <body>
+    <h1>{{ title }}</h1>
+    <nav>
+      {{#each taxonomies}}
+      <a href="/{{@key}}">{{ @key }}</a>
+      {{/each}}
+    </nav>
+    Latest articles
+    <ul>
+    {{#each collections.posts }}
+      <li><a href="/{{ path }}">{{ title }}</a></li>
+    {{/each}}
+    </ul>
+  </body>
+</html>

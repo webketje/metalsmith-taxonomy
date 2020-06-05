@@ -1,0 +1,32 @@
+---
+id: BSD-3
+identifiers:
+  - identifier: BSD-3-clause
+    scheme: DEP5
+  - identifier: BSD-3-Clause
+    scheme: SPDX
+  - identifier: "License :: OSI Approved :: BSD License"
+    scheme: Trove
+links:
+  - note: Wikipedia Page
+    url: https://en.wikipedia.org/wiki/BSD_licenses#3-clause
+  - note: OSI Page
+    url: https://opensource.org/licenses/BSD-3-Clause
+name: BSD 3-Clause License
+other_names:
+  - name: Revised BSD License
+    note:
+  - name: Modified BSD License
+    note:
+  - name: New BSD License
+    note:
+superseded_by:
+keywords:
+  - osi-approved
+  - popular
+  - permissive
+text:
+  - media_type: text/html
+    title: HTML
+    url: https://opensource.org/licenses/BSD-3-Clause
+---

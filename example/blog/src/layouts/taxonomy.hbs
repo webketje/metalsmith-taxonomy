@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Posts by {{ i18n taxonomy }} | {{ sitename }}</title>
+  </head>
+  <body>
+    Browse posts by {{ i18n taxonomy }} ({{ terms.length }} {{ i18n taxonomy 'pl'}}):
+    <ul>
+    {{#each (lookup taxonomies taxonomy) }}
+      <li><a href="/{{ ../namespace }}/{{ ../taxonomy }}/{{ @key }}">{{ @key }} ({{ length }})</a></li>
+    {{/each}}
+    </ul>
+  </body>
+</html>

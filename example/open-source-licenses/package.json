@@ -1,0 +1,23 @@
+{
+  "name": "metalsmith-taxonomy-example-opensource-licenses",
+  "version": "1.0.0",
+  "description": "An example on how to use metalsmith taxonomy for an index of open-source licenses",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index"
+  },
+  "author": "Kevin Van Lierde <kevin.van.lierde@gmail.com> (https://webketje.com)",
+  "license": "MIT",
+  "devDependencies": {
+    "jstransformer-handlebars": "^1.1.0",
+    "metalsmith": "^2.3.0",
+    "metalsmith-collections": "^0.9.0",
+    "metalsmith-rename": "^1.0.0",
+    "metalsmith-express": "^0.1.0",
+    "metalsmith-filemetadata": "^2.0.0",
+    "metalsmith-layouts": "^2.3.1",
+    "metalsmith-permalinks": "^2.2.0",
+    "metalsmith-taxonomy": "file:../.."
+  }
+}

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Licenses by tag | {{ sitename }}</title>
+  </head>
+  <body>
+    <h1>Licenses by tag:</h1>
+    <p><small><a href="/">&lt;- all licenses</a></small></p>
+    {{#each taxonomies.filtered as | licenses taxonomy | }}
+    <h3>{{ taxonomy }}</h3>
+    <ul>
+      {{#each licenses }}
+      <li><a href="/{{ path }}">{{ id }}</a></li>
+      {{/each}}
+    </ul>
+    {{/each}}
+  </body>
+</html>

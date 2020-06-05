@@ -1,0 +1,28 @@
+---
+id: BSD-2
+identifiers:
+  - identifier: BSD-2-clause
+    scheme: DEP5
+  - identifier: BSD-2-Clause
+    scheme: SPDX
+links:
+  - note: Wikipedia Page
+    url: https://en.wikipedia.org/wiki/BSD_licenses#2-clause
+  - note: OSI Page
+    url: https://opensource.org/licenses/BSD-2-Clause
+name: BSD 2-Clause License
+other_names:
+  - name: Simplified BSD License
+    note:
+  - name: FreeBSD License
+    note:
+superseded_by:
+keywords:
+  - osi-approved
+  - popular
+  - permissive
+text:
+  - media_type: text/html
+    title: HTML
+    url: https://opensource.org/licenses/BSD-2-Clause
+---
