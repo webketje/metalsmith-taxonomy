@@ -15,16 +15,14 @@ Metalsmith plugin that organizes files into taxonomy trees in global metadata an
 NPM:
 
 ```bash
-npm i -D git+https://git@github.com/webketje/metalsmith-taxonomy.git
+npm i -D metalsmith-taxonomy
 ```
 
 Yarn:
 
 ```bash
-yarn add git+https://git@github.com/webketje/metalsmith-taxonomy.git
+yarn add metalsmith-taxonomy
 ```
-
-Available on npmjs.com soon
 
 ### Order in metalsmith plugins
 
@@ -39,7 +37,7 @@ Simplest usage without parameters or with default parameters (all examples below
 ```js
 var default_taxonomy_set = {
   pattern: '**/*.{md,html}',
-  namespace: 'blog',
+  namespace: null,
   pages: ['index', 'taxonomy', 'term'],
   taxonomies: ['tags', 'category']
 };
