@@ -3,6 +3,7 @@ var Metalsmith = require('metalsmith');
 var taxonomy = require('../lib');
 
 test.spec('metalsmith-taxonomy', function () {
+  test.specTimeout(500);
   test.spec('Signature', function () {
     var instance;
 

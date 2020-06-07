@@ -2,10 +2,10 @@
 
 Metalsmith plugin that organizes files into taxonomy trees in global metadata and auto-generates taxonomy page objects.
 
-[![npm: version][npm-badge]][npm-url]
 [![metalsmith: plugin][metalsmith-badge]][metalsmith-url]
+[![npm: version][npm-badge]][npm-url]
 [![travis: build][ci-badge]][ci-url]
-[![license: LGPL-3.0]][license-badge]][license-url]
+[![license: LGPL-3.0][license-badge]][license-url]
 
 ## Features
 
