@@ -2,6 +2,11 @@
 
 Metalsmith plugin that organizes files into taxonomy trees in global metadata and auto-generates taxonomy page objects.
 
+[![npm: version][npm-badge]][npm-url]
+[![metalsmith: plugin][metalsmith-badge]][metalsmith-url]
+[![travis: build][ci-badge]][ci-url]
+[![license: LGPL-3.0]][license-badge]][license-url]
+
 ## Features
 
 - can pre-filter files by pattern
@@ -306,3 +311,12 @@ LGPL v0.3
 [4]: https://github.com/segmentio/metalsmith-permalinks 'metalsmith-permalinks on Github'
 [5]: https://github.com/dpobel/metalsmith-filemetadata 'metalsmith-filemetadata on Github'
 [6]: https://github.com/metalsmith/metalsmith-layouts 'metalsmith-layouts on Github'
+
+[npm-badge]: https://img.shields.io/npm/v/metalsmith-taxonomy
+[npm-url]: https://www.npmjs.com/package/metalsmith-taxonomy
+[ci-badge]: https://img.shields.io/travis/webketje/metalsmith-taxonomy
+[ci-url]: https://travis-ci.org/webketje/metalsmith-taxonomy
+[license-badge]: https://img.shields.io/github/license/webketje/metalsmith-taxonomy
+[license-url]: https://choosealicense.com/licenses/lgpl-3.0/
+[metalsmith-badge]: https://img.shields.io/badge/metalsmith-plugin-green.svg?longCache=true
+[metalsmith-url]: https://metalsmith.io/
