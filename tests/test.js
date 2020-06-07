@@ -1,8 +1,12 @@
 var test = require('mithril/ospec');
 var Metalsmith = require('metalsmith');
 var taxonomy = require('../lib');
+var hasOwnProperty = function (target, prop) {
+  return Object.prototype.hasOwnProperty.call(target, prop);
+};
 
 test.spec('metalsmith-taxonomy', function () {
+  test.specTimeout(500);
   test.spec('Signature', function () {
     var instance;
 
@@ -42,8 +46,8 @@ test.spec('metalsmith-taxonomy', function () {
             ).length === 3 &&
             Object.keys(metadata.taxonomies.blog).join(',') ===
               'category,tags' &&
-            files.hasOwnProperty('blog/category/a.html') &&
-            !files.hasOwnProperty('category/b.html');
+            hasOwnProperty(files, 'blog/category/a.html') &&
+            !hasOwnProperty(files, 'category/b.html');
 
           if (validity) done();
         });
@@ -51,9 +55,9 @@ test.spec('metalsmith-taxonomy', function () {
   });
 
   test.spec('Single taxonomy', function () {
-    var metadata = {},
-      categories = [],
-      taxonomies = {};
+    var metadata = {};
+    var categories = [];
+    var taxonomies = {};
 
     test.before(function (done) {
       Metalsmith(__dirname)
@@ -76,21 +80,14 @@ test.spec('metalsmith-taxonomy', function () {
             }
           })
         )
-        .process(function (err, filelist) {
+        .process(function (err) {
           if (err) throw err;
           metadata = this.metadata();
           taxonomies = metadata.taxonomies;
           categories = metadata.taxonomies.categories;
-          files = filelist;
           done();
         });
     });
-
-    /*test('taxonomy object can be made accessible from a key on the metadata root', function () {
-      var validity = taxonomies === metadata.blog;
-  
-      test(validity).equals(true);
-    });*/
 
     test('taxonomy termset property supports key match in file-metadata', function () {
       var validity = !!(
@@ -134,12 +131,11 @@ test.spec('metalsmith-taxonomy', function () {
   });
 
   test.spec('Multiple taxonomies', function () {
-    var metadata = {},
-      categories = [],
-      taxonomies = {},
-      laptops = {},
-      blog = {},
-      files = {};
+    var metadata = {};
+    var categories = [];
+    var taxonomies = {};
+    var laptops = {};
+    var blog = {};
 
     test.before(function (done) {
       Metalsmith(__dirname)
@@ -176,7 +172,6 @@ test.spec('metalsmith-taxonomy', function () {
           blog = taxonomies.blog;
           categories = taxonomies.blog.categories;
           laptops = taxonomies.laptops;
-          files = filelist;
           done();
         });
     });
