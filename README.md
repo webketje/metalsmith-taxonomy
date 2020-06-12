@@ -303,7 +303,7 @@ Clone this repository and navigate to the [`example/licenses`](example/open-sour
 
 ## License
 
-LGPL v0.3
+[LGPL v0.3](./LICENSE)
 
 [1]: https://en.wikipedia.org/wiki/Glob_%28programming%29 'glob patterns on Wikipedia'
 [2]: https://github.com/sindresorhus/multimatch 'multimatch on Github'
