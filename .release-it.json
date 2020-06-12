@@ -13,7 +13,9 @@
     "publish": true
   },
   "github": {
+    "release": true,
     "releaseName": "metalsmith-taxonomy ${version}",
-    "tokenRef": "GITHUB_TOKEN"
+    "tokenRef": "GITHUB_TOKEN",
+    "releaseNotes": true
   }
 }
