@@ -1,6 +1,6 @@
 {
   "name": "metalsmith-taxonomy",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Metalsmith plugin that organizes files into taxonomy trees in global metadata and auto-generates taxonomy page objects",
   "homepage": "https://github.com/webketje/metalsmith-taxonomy#README.md",
   "bugs": "https://github.com/webketje/metalsmith-taxonomy/issues",
