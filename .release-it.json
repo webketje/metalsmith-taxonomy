@@ -1,5 +1,6 @@
 {
   "hooks": {
+    "before:init": ["npm run lint","npm test"],
     "after:bump": "node_modules/.bin/auto-changelog -p"
   },
   "git": {

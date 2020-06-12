@@ -9,5 +9,5 @@ node_js:
 os:
   - linux
 script:
-  - npm lint
+  - npm run lint
   - npm test
