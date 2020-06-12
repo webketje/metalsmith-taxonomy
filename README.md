@@ -311,7 +311,6 @@ Clone this repository and navigate to the [`example/licenses`](example/open-sour
 [4]: https://github.com/segmentio/metalsmith-permalinks 'metalsmith-permalinks on Github'
 [5]: https://github.com/dpobel/metalsmith-filemetadata 'metalsmith-filemetadata on Github'
 [6]: https://github.com/metalsmith/metalsmith-layouts 'metalsmith-layouts on Github'
-
 [npm-badge]: https://img.shields.io/npm/v/metalsmith-taxonomy
 [npm-url]: https://www.npmjs.com/package/metalsmith-taxonomy
 [ci-badge]: https://img.shields.io/travis/webketje/metalsmith-taxonomy

@@ -11,10 +11,7 @@ test.spec('metalsmith-taxonomy', function () {
     var instance;
 
     test.beforeEach(function () {
-      instance = Metalsmith(__dirname)
-        .source('mocks')
-        .destination('dist')
-        .ignore('laptops');
+      instance = Metalsmith(__dirname).source('mocks').destination('dist').ignore('laptops');
     });
 
     test('Should support super-simple parameter-less instantiation', function (done) {
@@ -24,8 +21,7 @@ test.spec('metalsmith-taxonomy', function () {
         var metadata = this.metadata();
         var validity =
           !(err && err.prototype !== Error) &&
-          metadata.taxonomies.category.a.concat(metadata.taxonomies.category.b)
-            .length === 3 &&
+          metadata.taxonomies.category.a.concat(metadata.taxonomies.category.b).length === 3 &&
           Object.keys(metadata.taxonomies).join(',') === 'category,tags';
 
         if (validity) done();
@@ -33,24 +29,19 @@ test.spec('metalsmith-taxonomy', function () {
     });
 
     test('Should support namespace parameter', function (done) {
-      instance
-        .use(taxonomy({ namespace: 'blog' }))
-        .process(function (err, files) {
-          if (err) done(err);
+      instance.use(taxonomy({ namespace: 'blog' })).process(function (err, files) {
+        if (err) done(err);
 
-          var metadata = this.metadata();
-          var validity =
-            !(err && err.prototype !== Error) &&
-            metadata.taxonomies.blog.category.a.concat(
-              metadata.taxonomies.blog.category.b
-            ).length === 3 &&
-            Object.keys(metadata.taxonomies.blog).join(',') ===
-              'category,tags' &&
-            hasOwnProperty(files, 'blog/category/a.html') &&
-            !hasOwnProperty(files, 'category/b.html');
+        var metadata = this.metadata();
+        var validity =
+          !(err && err.prototype !== Error) &&
+          metadata.taxonomies.blog.category.a.concat(metadata.taxonomies.blog.category.b).length === 3 &&
+          Object.keys(metadata.taxonomies.blog).join(',') === 'category,tags' &&
+          hasOwnProperty(files, 'blog/category/a.html') &&
+          !hasOwnProperty(files, 'category/b.html');
 
-          if (validity) done();
-        });
+        if (validity) done();
+      });
     });
   });
 
@@ -71,9 +62,7 @@ test.spec('metalsmith-taxonomy', function () {
             taxonomies: {
               categories: 'category',
               categoryAlias: function (file) {
-                var cat = Array.isArray(file.category)
-                  ? file.category
-                  : [file.category];
+                var cat = Array.isArray(file.category) ? file.category : [file.category];
                 return cat.indexOf('b') > -1 ? 'none' : cat;
               },
               keywords: 'meta.keywords'
@@ -90,11 +79,7 @@ test.spec('metalsmith-taxonomy', function () {
     });
 
     test('taxonomy termset property supports key match in file-metadata', function () {
-      var validity = !!(
-        Object.keys(categories).length === 2 &&
-        categories.a &&
-        categories.b
-      );
+      var validity = !!(Object.keys(categories).length === 2 && categories.a && categories.b);
 
       test(validity).equals(true);
     });
@@ -150,9 +135,7 @@ test.spec('metalsmith-taxonomy', function () {
               taxonomies: {
                 categories: 'category',
                 categoryAlias: function (file) {
-                  var cat = Array.isArray(file.category)
-                    ? file.category
-                    : [file.category];
+                  var cat = Array.isArray(file.category) ? file.category : [file.category];
                   return cat.indexOf('b') > -1 ? 'none' : cat;
                 },
                 keywords: 'meta.keywords'
@@ -177,22 +160,13 @@ test.spec('metalsmith-taxonomy', function () {
     });
 
     test('taxonomy termset can be an array of strings matching file-metadata', function () {
-      var validity = !!(
-        Object.keys(laptops).length === 3 &&
-        laptops.screen &&
-        laptops.ram &&
-        laptops.processor
-      );
+      var validity = !!(Object.keys(laptops).length === 3 && laptops.screen && laptops.ram && laptops.processor);
 
       test(validity).equals(true);
     });
 
     test('taxonomy termset property supports key match in file-metadata', function () {
-      var validity = !!(
-        Object.keys(categories).length === 2 &&
-        categories.a &&
-        categories.b
-      );
+      var validity = !!(Object.keys(categories).length === 2 && categories.a && categories.b);
 
       test(validity).equals(true);
     });
