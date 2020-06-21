@@ -18,15 +18,16 @@
     "tags"
   ],
   "author": "Kevin Van Lierde <kevin.van.lierde@gmail.com> (https://webketje.com)",
-  "engines" : {
-    "node" : ">=8"
+  "engines": {
+    "node": ">=8"
   },
   "main": "lib/index.js",
   "scripts": {
-    "test": "ospec",
+    "test": "nyc ospec",
     "format": "prettier --write .",
     "lint": "eslint .",
-    "release": "release-it"
+    "release": "release-it",
+    "codecov": "nyc report --reporter=text-lcov > ./coverage.info && cat ./coverage.info | node_modules/coveralls/bin/coveralls.js"
   },
   "directories": {
     "test": "./tests",
@@ -38,10 +39,11 @@
   ],
   "dependencies": {
     "debug": "^4.1.1",
-    "multimatch": "^4.0.0"
+    "multimatch": "*"
   },
   "devDependencies": {
     "auto-changelog": "^2.0.0",
+    "coveralls": "^3.1.0",
     "eslint": "^7.2.0",
     "eslint-config-standard": "^14.1.1",
     "eslint-plugin-import": "^2.20.2",
@@ -49,7 +51,8 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
     "metalsmith": "^2.3.0",
-    "mithril": "^2.0.4",
+    "nyc": "^15.1.0",
+    "ospec": "*",
     "prettier": "^2.0.5",
     "release-it": "^13.6.2"
   }

@@ -5,6 +5,7 @@ Metalsmith plugin that organizes files into taxonomy trees in global metadata an
 [![metalsmith: plugin][metalsmith-badge]][metalsmith-url]
 [![npm: version][npm-badge]][npm-url]
 [![travis: build][ci-badge]][ci-url]
+[[!code coverage]][codecov-url]
 [![license: LGPL-3.0][license-badge]][license-url]
 
 ## Features
@@ -129,7 +130,7 @@ If `namespace` is not defined, the `index` page type path will default to `index
 With the [Quickstart](#quickstart) example, metalsmith-taxonomy will generate:
 
 ```js
-[
+{
   'index.html',
   'category.html',
   'category/category1.html',
@@ -138,7 +139,7 @@ With the [Quickstart](#quickstart) example, metalsmith-taxonomy will generate:
   'tags/tag1.html',
   'tags/tag2.html',
   ...other_files
-];
+};
 ```
 
 All the file objects have an empty string `contents` property and a page `type` property. Additional details are documented below:
@@ -317,5 +318,7 @@ Clone this repository and navigate to the [`example/licenses`](example/open-sour
 [ci-url]: https://travis-ci.org/webketje/metalsmith-taxonomy
 [license-badge]: https://img.shields.io/github/license/webketje/metalsmith-taxonomy
 [license-url]: https://choosealicense.com/licenses/lgpl-3.0/
+[codecov-badge]: https://img.shields.io/coveralls/github/webketje/metalsmith-taxonomy
+[codecov-url]: https://coveralls.io/github/webketje/metalsmith-taxonomy
 [metalsmith-badge]: https://img.shields.io/badge/metalsmith-plugin-green.svg?longCache=true
 [metalsmith-url]: https://metalsmith.io/

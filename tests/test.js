@@ -1,4 +1,4 @@
-var test = require('mithril/ospec');
+var test = require('ospec');
 var Metalsmith = require('metalsmith');
 var taxonomy = require('../lib');
 var hasOwnProperty = function (target, prop) {
