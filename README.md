@@ -5,7 +5,7 @@ Metalsmith plugin that organizes files into taxonomy trees in global metadata an
 [![metalsmith: plugin][metalsmith-badge]][metalsmith-url]
 [![npm: version][npm-badge]][npm-url]
 [![travis: build][ci-badge]][ci-url]
-[[!code coverage]][codecov-url]
+[![code coverage][codecov-badge]][codecov-url]
 [![license: LGPL-3.0][license-badge]][license-url]
 
 ## Features
@@ -149,6 +149,7 @@ All the file objects have an empty string `contents` property and a page `type` 
 | Property     | Type               | Description                                                                                             |
 | :----------- | :----------------- | :------------------------------------------------------------------------------------------------------ |
 | `type`       | `'taxonomy:index'` | Page type                                                                                               |
+| `path`       | `string`           | Destination path of the page                                                                            |
 | `namespace`  | `null\|string`     | Namespace passed in taxonomy set                                                                        |
 | `taxonomies` | `object`           | Copy of the object at `metadata.taxonomies[namespace]` (or `metadata.taxonomies` if `namespace===null`) |
 
@@ -157,6 +158,7 @@ All the file objects have an empty string `contents` property and a page `type` 
 | Property     | Type                  | Description                                                                                             |
 | :----------- | :-------------------- | :------------------------------------------------------------------------------------------------------ |
 | `type`       | `'taxonomy:taxonomy'` | Page type                                                                                               |
+| `path`       | `string`              | Destination path of the page                                                                            |
 | `namespace`  | `null\|string`        | Namespace passed in taxonomy set                                                                        |
 | `taxonomy`   | `string`              | Name of the current taxonomy                                                                            |
 | `terms`      | `array`               | Array with the terms found for the current taxonomy                                                     |
@@ -167,6 +169,7 @@ All the file objects have an empty string `contents` property and a page `type` 
 | Property     | Type              | Description                                                                                             |
 | :----------- | :---------------- | :------------------------------------------------------------------------------------------------------ |
 | `type`       | `'taxonomy:term'` | Page type                                                                                               |
+| `path`       | `string`          | Destination path of the page                                                                            |
 | `namespace`  | `null\|string`    | Namespace passed in taxonomy set                                                                        |
 | `taxonomy`   | `string`          | Name of the current taxonomy                                                                            |
 | `terms`      | `array`           | Array with the terms found for the current taxonomy                                                     |

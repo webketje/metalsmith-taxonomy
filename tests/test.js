@@ -49,6 +49,7 @@ test.spec('metalsmith-taxonomy', function () {
     var metadata = {};
     var categories = [];
     var taxonomies = {};
+    var files = {};
 
     test.before(function (done) {
       Metalsmith(__dirname)
@@ -69,6 +70,7 @@ test.spec('metalsmith-taxonomy', function () {
             }
           })
         )
+        .use((fileObjects) => files = fileObjects)
         .process(function (err) {
           if (err) throw err;
           metadata = this.metadata();
@@ -112,6 +114,13 @@ test.spec('metalsmith-taxonomy', function () {
       var validity = categories.a.length === 2 && categories.b.length === 1;
 
       test(validity).equals(true);
+    });
+
+    test('Index, taxonomy & term pages get a path property identical to their key in the files object', function() {
+      var generatedPages = key => !!files[key].type;
+      var paths = Object.keys(files).filter(generatedPages).map(key => key === files[key].path);
+
+      test(paths.indexOf(false)).equals(-1);
     });
   });
 
