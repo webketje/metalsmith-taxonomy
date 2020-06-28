@@ -5,7 +5,3 @@ singleQuote: true
 bracketSpacing: true
 arrowParens: 'always'
 printWidth: 120
-overrides:
-  - files: '*.hbs'
-    options:
-      parser: html

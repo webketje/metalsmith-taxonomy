@@ -5,6 +5,7 @@ Metalsmith plugin that organizes files into taxonomy trees in global metadata an
 [![metalsmith: plugin][metalsmith-badge]][metalsmith-url]
 [![npm: version][npm-badge]][npm-url]
 [![travis: build][ci-badge]][ci-url]
+[![code coverage][codecov-badge]][codecov-url]
 [![license: LGPL-3.0][license-badge]][license-url]
 
 ## Features
@@ -114,7 +115,7 @@ The [Quickstart](#quickstart) example will generate the following results in glo
   }
 ```
 
-### Auto-generated index, taxonomy, and term file objects
+### Auto-generated index, taxonomy, and term pages
 
 If the `pages` property of a taxonomy set is not an empty array, or `false`, metalsmith-taxonomy will auto-generate pages at the following paths:
 
@@ -124,12 +125,12 @@ If the `pages` property of a taxonomy set is not an empty array, or `false`, met
 | `taxonomy` | `:namespace/:taxonomy.html`       | blog/category.html            |
 | `term`     | `:namespace/:taxonomy/:term.html` | blog/category/metalsmith.html |
 
-If `namespace` is not defined, the `index` page type path will default to `index.html`.
+If `namespace` is not defined, the `index` page path will default to `index.html`.
 
 With the [Quickstart](#quickstart) example, metalsmith-taxonomy will generate:
 
 ```js
-[
+{
   'index.html',
   'category.html',
   'category/category1.html',
@@ -138,38 +139,45 @@ With the [Quickstart](#quickstart) example, metalsmith-taxonomy will generate:
   'tags/tag1.html',
   'tags/tag2.html',
   ...other_files
-];
+};
 ```
 
-All the file objects have an empty string `contents` property and a page `type` property. Additional details are documented below:
+Generated file objects get the following metadata:
 
-#### Index file object metadata
+#### Index page metadata
 
 | Property     | Type               | Description                                                                                             |
 | :----------- | :----------------- | :------------------------------------------------------------------------------------------------------ |
 | `type`       | `'taxonomy:index'` | Page type                                                                                               |
+| `path`       | `string`           | Destination path of the page                                                                            |
 | `namespace`  | `null\|string`     | Namespace passed in taxonomy set                                                                        |
 | `taxonomies` | `object`           | Copy of the object at `metadata.taxonomies[namespace]` (or `metadata.taxonomies` if `namespace===null`) |
 
-#### Taxonomy file object metadata
+#### Taxonomy page metadata
 
 | Property     | Type                  | Description                                                                                             |
 | :----------- | :-------------------- | :------------------------------------------------------------------------------------------------------ |
 | `type`       | `'taxonomy:taxonomy'` | Page type                                                                                               |
+| `path`       | `string`              | Destination path of the page                                                                            |
 | `namespace`  | `null\|string`        | Namespace passed in taxonomy set                                                                        |
 | `taxonomy`   | `string`              | Name of the current taxonomy                                                                            |
 | `terms`      | `array`               | Array with the terms found for the current taxonomy                                                     |
 | `taxonomies` | `object`              | Copy of the object at `metadata.taxonomies[namespace]` (or `metadata.taxonomies` if `namespace===null`) |
 
-#### Term file object metadata
+#### Term page metadata
 
 | Property     | Type              | Description                                                                                             |
 | :----------- | :---------------- | :------------------------------------------------------------------------------------------------------ |
 | `type`       | `'taxonomy:term'` | Page type                                                                                               |
+| `path`       | `string`          | Destination path of the page                                                                            |
 | `namespace`  | `null\|string`    | Namespace passed in taxonomy set                                                                        |
 | `taxonomy`   | `string`          | Name of the current taxonomy                                                                            |
 | `terms`      | `array`           | Array with the terms found for the current taxonomy                                                     |
 | `taxonomies` | `object`          | Copy of the object at `metadata.taxonomies[namespace]` (or `metadata.taxonomies` if `namespace===null`) |
+
+#### Adding extra metadata to the generated pages
+
+If a file already exists at the target path of a generated page, the generated metadata will be merged into the existing metadata of that file. Extra metadata can also be added with plugins like [metalsmith-filemetadata][5] further in the plugin chain.
 
 ### Sorting the term matches
 
@@ -317,5 +325,7 @@ Clone this repository and navigate to the [`example/licenses`](example/open-sour
 [ci-url]: https://travis-ci.org/webketje/metalsmith-taxonomy
 [license-badge]: https://img.shields.io/github/license/webketje/metalsmith-taxonomy
 [license-url]: https://choosealicense.com/licenses/lgpl-3.0/
+[codecov-badge]: https://img.shields.io/coveralls/github/webketje/metalsmith-taxonomy
+[codecov-url]: https://coveralls.io/github/webketje/metalsmith-taxonomy
 [metalsmith-badge]: https://img.shields.io/badge/metalsmith-plugin-green.svg?longCache=true
 [metalsmith-url]: https://metalsmith.io/
