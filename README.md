@@ -115,7 +115,7 @@ The [Quickstart](#quickstart) example will generate the following results in glo
   }
 ```
 
-### Auto-generated index, taxonomy, and term file objects
+### Auto-generated index, taxonomy, and term pages
 
 If the `pages` property of a taxonomy set is not an empty array, or `false`, metalsmith-taxonomy will auto-generate pages at the following paths:
 
@@ -125,7 +125,7 @@ If the `pages` property of a taxonomy set is not an empty array, or `false`, met
 | `taxonomy` | `:namespace/:taxonomy.html`       | blog/category.html            |
 | `term`     | `:namespace/:taxonomy/:term.html` | blog/category/metalsmith.html |
 
-If `namespace` is not defined, the `index` page type path will default to `index.html`.
+If `namespace` is not defined, the `index` page path will default to `index.html`.
 
 With the [Quickstart](#quickstart) example, metalsmith-taxonomy will generate:
 
@@ -142,9 +142,9 @@ With the [Quickstart](#quickstart) example, metalsmith-taxonomy will generate:
 };
 ```
 
-All the file objects have an empty string `contents` property and a page `type` property. Additional details are documented below:
+Generated file objects get the following metadata:
 
-#### Index file object metadata
+#### Index page metadata
 
 | Property     | Type               | Description                                                                                             |
 | :----------- | :----------------- | :------------------------------------------------------------------------------------------------------ |
@@ -153,7 +153,7 @@ All the file objects have an empty string `contents` property and a page `type` 
 | `namespace`  | `null\|string`     | Namespace passed in taxonomy set                                                                        |
 | `taxonomies` | `object`           | Copy of the object at `metadata.taxonomies[namespace]` (or `metadata.taxonomies` if `namespace===null`) |
 
-#### Taxonomy file object metadata
+#### Taxonomy page metadata
 
 | Property     | Type                  | Description                                                                                             |
 | :----------- | :-------------------- | :------------------------------------------------------------------------------------------------------ |
@@ -164,7 +164,7 @@ All the file objects have an empty string `contents` property and a page `type` 
 | `terms`      | `array`               | Array with the terms found for the current taxonomy                                                     |
 | `taxonomies` | `object`              | Copy of the object at `metadata.taxonomies[namespace]` (or `metadata.taxonomies` if `namespace===null`) |
 
-#### Term file object metadata
+#### Term page metadata
 
 | Property     | Type              | Description                                                                                             |
 | :----------- | :---------------- | :------------------------------------------------------------------------------------------------------ |
@@ -174,6 +174,10 @@ All the file objects have an empty string `contents` property and a page `type` 
 | `taxonomy`   | `string`          | Name of the current taxonomy                                                                            |
 | `terms`      | `array`           | Array with the terms found for the current taxonomy                                                     |
 | `taxonomies` | `object`          | Copy of the object at `metadata.taxonomies[namespace]` (or `metadata.taxonomies` if `namespace===null`) |
+
+#### Adding extra metadata to the generated pages
+
+If a file already exists at the target path of a generated page, the generated metadata will be merged into the existing metadata of that file. Extra metadata can also be added with plugins like [metalsmith-filemetadata][5] further in the plugin chain.
 
 ### Sorting the term matches
 

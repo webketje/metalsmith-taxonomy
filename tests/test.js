@@ -70,9 +70,9 @@ test.spec('metalsmith-taxonomy', function () {
             }
           })
         )
-        .use((fileObjects) => files = fileObjects)
-        .process(function (err) {
+        .process(function (err, fileObjects) {
           if (err) throw err;
+          files = fileObjects;
           metadata = this.metadata();
           taxonomies = metadata.taxonomies;
           categories = metadata.taxonomies.categories;
@@ -116,11 +116,21 @@ test.spec('metalsmith-taxonomy', function () {
       test(validity).equals(true);
     });
 
-    test('Index, taxonomy & term pages get a path property identical to their key in the files object', function() {
-      var generatedPages = key => !!files[key].type;
-      var paths = Object.keys(files).filter(generatedPages).map(key => key === files[key].path);
+    test('Index, taxonomy & term pages get a path property identical to their key in the files object', function () {
+      var generatedPages = (key) => !!files[key].type;
+      var paths = Object.keys(files)
+        .filter(generatedPages)
+        .map((key) => key === files[key].path);
 
       test(paths.indexOf(false)).equals(-1);
+    });
+
+    test('Generated pages should merge metadata with existing pages (if any)', () => {
+      var file = files['categories.html'];
+      var valid =
+        file.test === 'test' && file.taxonomy === 'categories' && file.contents.toString().trim() === 'Content';
+
+      test(valid).equals(true);
     });
   });
 
