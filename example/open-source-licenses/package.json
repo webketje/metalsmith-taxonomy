@@ -2,6 +2,7 @@
   "name": "metalsmith-taxonomy-example-opensource-licenses",
   "version": "1.0.0",
   "description": "An example on how to use metalsmith taxonomy for an index of open-source licenses",
+  "private": true,
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

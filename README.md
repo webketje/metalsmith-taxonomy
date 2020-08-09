@@ -30,10 +30,6 @@ Yarn:
 yarn add metalsmith-taxonomy
 ```
 
-### Order in metalsmith plugins
-
-Use this plugin _after_ [metalsmith-collections][3] and _before_ [metalsmith-permalinks][4] and [metalsmith-filemetadata][5]. This plugin is a replacement for metalsmith-tags, with more flexibility.
-
 ## Usage
 
 ### Quickstart
@@ -152,6 +148,7 @@ Generated file objects get the following metadata:
 | `path`       | `string`           | Destination path of the page                                                                            |
 | `namespace`  | `null\|string`     | Namespace passed in taxonomy set                                                                        |
 | `taxonomies` | `object`           | Copy of the object at `metadata.taxonomies[namespace]` (or `metadata.taxonomies` if `namespace===null`) |
+| `contents`   | `string`           | Empty string                                                                                            |
 
 #### Taxonomy page metadata
 
@@ -163,6 +160,7 @@ Generated file objects get the following metadata:
 | `taxonomy`   | `string`              | Name of the current taxonomy                                                                            |
 | `terms`      | `array`               | Array with the terms found for the current taxonomy                                                     |
 | `taxonomies` | `object`              | Copy of the object at `metadata.taxonomies[namespace]` (or `metadata.taxonomies` if `namespace===null`) |
+| `contents`   | `string`           | Empty string                                                                                            |
 
 #### Term page metadata
 
@@ -174,6 +172,7 @@ Generated file objects get the following metadata:
 | `taxonomy`   | `string`          | Name of the current taxonomy                                                                            |
 | `terms`      | `array`           | Array with the terms found for the current taxonomy                                                     |
 | `taxonomies` | `object`          | Copy of the object at `metadata.taxonomies[namespace]` (or `metadata.taxonomies` if `namespace===null`) |
+| `contents`   | `string`           | Empty string                                                                                            |
 
 #### Adding extra metadata to the generated pages
 
