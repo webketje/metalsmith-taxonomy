@@ -39,7 +39,7 @@
   ],
   "dependencies": {
     "debug": "^4.1.1",
-    "multimatch": "*"
+    "micromatch": "*"
   },
   "devDependencies": {
     "auto-changelog": "^2.2.0",
