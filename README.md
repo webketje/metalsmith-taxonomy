@@ -160,7 +160,7 @@ Generated file objects get the following metadata:
 | `taxonomy`   | `string`              | Name of the current taxonomy                                                                            |
 | `terms`      | `array`               | Array with the terms found for the current taxonomy                                                     |
 | `taxonomies` | `object`              | Copy of the object at `metadata.taxonomies[namespace]` (or `metadata.taxonomies` if `namespace===null`) |
-| `contents`   | `string`           | Empty string                                                                                            |
+| `contents`   | `string`              | Empty string                                                                                            |
 
 #### Term page metadata
 
@@ -172,7 +172,7 @@ Generated file objects get the following metadata:
 | `taxonomy`   | `string`          | Name of the current taxonomy                                                                            |
 | `terms`      | `array`           | Array with the terms found for the current taxonomy                                                     |
 | `taxonomies` | `object`          | Copy of the object at `metadata.taxonomies[namespace]` (or `metadata.taxonomies` if `namespace===null`) |
-| `contents`   | `string`           | Empty string                                                                                            |
+| `contents`   | `string`          | Empty string                                                                                            |
 
 #### Adding extra metadata to the generated pages
 
