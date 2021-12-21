@@ -1,7 +1,8 @@
 {
   "hooks": {
     "before:init": ["npm run lint", "npm test"],
-    "after:bump": "node_modules/.bin/auto-changelog -l 10 --sort-commits date -p"
+    "after:bump": "auto-changelog -l false -p --ignore-commit-pattern '^((dev|chore|ci):|Release)",
+    "after:npm:bump": "npm pack",
   },
   "git": {
     "commitMessage": "Release ${version}",
@@ -11,11 +12,12 @@
     "changelog": "git log --no-merges --pretty=format:\"* %s (%h)\" ${from}...${to}"
   },
   "npm": {
-    "publish": true
+    "publish": false
   },
   "github": {
     "release": true,
     "releaseName": "metalsmith-taxonomy ${version}",
-    "tokenRef": "GITHUB_TOKEN"
+    "tokenRef": "GITHUB_TOKEN",
+    "assets": ["metalsmith-taxonomy-${version}.tgz"]
   }
 }

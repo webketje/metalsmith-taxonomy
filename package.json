@@ -2,7 +2,7 @@
   "name": "metalsmith-taxonomy",
   "version": "0.4.0",
   "description": "Metalsmith plugin that organizes files into taxonomy trees in global metadata and auto-generates taxonomy page objects",
-  "homepage": "https://github.com/webketje/metalsmith-taxonomy#README.md",
+  "homepage": "https://github.com/webketje/metalsmith-taxonomy#readme",
   "bugs": "https://github.com/webketje/metalsmith-taxonomy/issues",
   "license": "LGPL-3.0-or-later",
   "repository": {
@@ -17,9 +17,9 @@
     "categories",
     "tags"
   ],
-  "author": "Kevin Van Lierde <kevin.van.lierde@gmail.com> (https://webketje.com)",
+  "author": "Kevin Van Lierde (https://webketje.com)",
   "engines": {
-    "node": ">=8"
+    "node": ">=8.6"
   },
   "main": "lib/index.js",
   "scripts": {
@@ -39,21 +39,24 @@
   ],
   "dependencies": {
     "debug": "^4.3.1",
-    "micromatch": "*"
+    "micromatch": "^4.0.4"
   },
   "devDependencies": {
     "auto-changelog": "^2.3.0",
     "coveralls": "^3.1.1",
-    "eslint": "^7.29.0",
+    "eslint": "^8.5.0",
+    "eslint-config-prettier": "^8.3.0",
     "eslint-config-standard": "^16.0.3",
-    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^5.1.0",
-    "eslint-plugin-standard": "^5.0.0",
+    "eslint-plugin-promise": "^6.0.0",
     "metalsmith": "^2.3.0",
     "nyc": "^15.1.0",
     "ospec": "*",
-    "prettier": "^2.3.2",
-    "release-it": "^14.10.0"
+    "prettier": "^2.5.1",
+    "release-it": "^14.11.8"
+  },
+  "peerDependencies": {
+    "metalsmith": "^2.3.0"
   }
 }
