@@ -1,16 +1,16 @@
-var metalsmith = require('metalsmith')(__dirname);
-var devserver = require('metalsmith-express')();
-var markdown = require('metalsmith-markdown')();
-var taxonomy = require('metalsmith-taxonomy')({
+const metalsmith = require('metalsmith')(__dirname);
+const devserver = require('metalsmith-express')();
+const markdown = require('metalsmith-markdown')();
+const taxonomy = require('metalsmith-taxonomy')({
   pattern: 'pages/posts/*.{md,html}',
   pages: ['index', 'taxonomy', 'term'],
   namespace: 'blog',
   taxonomies: ['category', 'tags']
 });
 
-var metadata = { sitename: 'My blog' };
+const metadata = { sitename: 'My blog' };
 
-var filemetadata = require('metalsmith-filemetadata')([
+const filemetadata = require('metalsmith-filemetadata')([
   {
     pattern: 'blog/*/*/*.html',
     metadata: {
@@ -31,14 +31,14 @@ var filemetadata = require('metalsmith-filemetadata')([
   }
 ]);
 
-var layouts = require('metalsmith-layouts')({
+const layouts = require('metalsmith-layouts')({
   directory: 'src/layouts',
   default: 'default.hbs',
   pattern: '**/*.{md,html}',
   engineOptions: {
     helpers: {
       i18n: function (lookup, plural) {
-        var dictionary = {
+        const dictionary = {
           tags: 'tag',
           'tags:pl': 'tags',
           category: 'category',
@@ -50,11 +50,11 @@ var layouts = require('metalsmith-layouts')({
   }
 });
 
-var collections = require('metalsmith-collections')({
+const collections = require('metalsmith-collections')({
   posts: 'pages/posts/*.{md,html}'
 });
 
-var permalinks = require('metalsmith-permalinks')({
+const permalinks = require('metalsmith-permalinks')({
   linksets: [
     {
       match: { collection: 'posts' },

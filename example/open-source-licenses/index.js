@@ -1,16 +1,16 @@
-var metalsmith = require('metalsmith')(__dirname);
-var devserver = require('metalsmith-express')();
-var ymlToHtml = require('metalsmith-rename')([['.yml', '.html']]);
-var taxonomy = require('metalsmith-taxonomy')({
+const metalsmith = require('metalsmith')(__dirname);
+const devserver = require('metalsmith-express')();
+const ymlToHtml = require('metalsmith-rename')([['.yml', '.html']]);
+const taxonomy = require('metalsmith-taxonomy')({
   pattern: '**/*.yml',
   pages: ['taxonomy', 'term'],
   taxonomies: {
     filtered: 'keywords'
   }
 });
-var metadata = { sitename: 'Open-source licenses' };
+const metadata = { sitename: 'Open-source licenses' };
 
-var filemetadata = require('metalsmith-filemetadata')([
+const filemetadata = require('metalsmith-filemetadata')([
   {
     pattern: 'licenses/filtered/*/index.html',
     metadata: {
@@ -25,17 +25,17 @@ var filemetadata = require('metalsmith-filemetadata')([
   }
 ]);
 
-var layouts = require('metalsmith-layouts')({
+const layouts = require('metalsmith-layouts')({
   directory: 'layouts',
   default: 'license.hbs',
   pattern: '**/*.html'
 });
 
-var collections = require('metalsmith-collections')({
+const collections = require('metalsmith-collections')({
   licenses: '*.yml'
 });
 
-var permalinks = require('metalsmith-permalinks')({
+const permalinks = require('metalsmith-permalinks')({
   linksets: [
     {
       match: { collection: 'licenses' },
