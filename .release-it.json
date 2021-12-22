@@ -1,15 +1,15 @@
 {
   "hooks": {
     "before:init": ["npm run lint", "npm test"],
-    "after:bump": "auto-changelog -l false -p --ignore-commit-pattern '^((dev|chore|ci):|Release)",
-    "after:npm:bump": "npm pack",
+    "after:bump": "auto-changelog -l false -p --ignore-commit-pattern '^((dev|chore|ci):|Release)'",
+    "after:npm:bump": "npm pack"
   },
   "git": {
     "commitMessage": "Release ${version}",
     "commitArgs": ["-S"],
     "tagAnnotation": "Release ${version}",
     "tagArgs": ["-s"],
-    "changelog": "git log --no-merges --pretty=format:\"* %s (%h)\" ${from}...${to}"
+    "changelog": "auto-changelog -l false -u --ignore-commit-pattern '^((dev|chore|ci):|Release)' --stdout -t https://raw.githubusercontent.com/release-it/release-it/master/templates/changelog-compact.hbs"
   },
   "npm": {
     "publish": false

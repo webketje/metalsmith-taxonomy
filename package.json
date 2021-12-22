@@ -23,6 +23,7 @@
   },
   "main": "lib/index.js",
   "scripts": {
+    "changelog": "auto-changelog -l false -u --ignore-commit-pattern '^((dev|chore|ci):|Release)'",
     "test": "nyc ospec",
     "format": "prettier --write .",
     "lint": "eslint .",
