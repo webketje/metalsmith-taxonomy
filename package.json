@@ -23,19 +23,21 @@
   },
   "main": "lib/index.js",
   "scripts": {
-    "test": "nyc ospec",
+    "test": "nyc mocha",
     "format": "prettier --write .",
     "lint": "eslint .",
     "release": "release-it",
     "codecov": "nyc report --reporter=text-lcov > ./coverage.info && cat ./coverage.info | node_modules/coveralls/bin/coveralls.js"
   },
   "directories": {
-    "test": "./tests",
-    "lib": "./lib"
+    "test": "tests",
+    "lib": "lib",
+    "example": "example"
   },
   "files": [
     "/lib/index.js",
-    "/lib/taxonomy-set.js"
+    "/lib/taxonomy-set.js",
+    "/lib/helpers.js"
   ],
   "dependencies": {
     "debug": "^4.3.1",
@@ -51,8 +53,8 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.0.0",
     "metalsmith": "^2.3.0",
+    "mocha": "^7.2.0",
     "nyc": "^15.1.0",
-    "ospec": "*",
     "prettier": "^2.5.1",
     "release-it": "^14.11.8"
   },
