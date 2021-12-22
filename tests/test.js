@@ -1,6 +1,7 @@
 const test = require('ospec');
 const Metalsmith = require('metalsmith');
 const taxonomy = require('../lib');
+const path = require('path');
 const hasOwnProperty = function (target, prop) {
   return Object.prototype.hasOwnProperty.call(target, prop);
 };
@@ -16,7 +17,7 @@ test.spec('metalsmith-taxonomy', function () {
 
     test('Should support super-simple parameter-less instantiation', function (done) {
       instance.use(taxonomy()).process(function (err) {
-        if (err) done(err);
+        if (err) throw err;
 
         const metadata = this.metadata();
         const validity =
@@ -24,23 +25,25 @@ test.spec('metalsmith-taxonomy', function () {
           metadata.taxonomies.category.a.concat(metadata.taxonomies.category.b).length === 3 &&
           Object.keys(metadata.taxonomies).join(',') === 'category,tags';
 
-        if (validity) done();
+        test(validity).equals(true)
+        done()
       });
     });
 
     test('Should support namespace parameter', function (done) {
       instance.use(taxonomy({ namespace: 'blog' })).process(function (err, files) {
-        if (err) done(err);
+        if (err) throw err;
 
         const metadata = this.metadata();
         const validity =
           !(err && err.prototype !== Error) &&
           metadata.taxonomies.blog.category.a.concat(metadata.taxonomies.blog.category.b).length === 3 &&
           Object.keys(metadata.taxonomies.blog).join(',') === 'category,tags' &&
-          hasOwnProperty(files, 'blog/category/a.html') &&
-          !hasOwnProperty(files, 'category/b.html');
+          hasOwnProperty(files, path.join('blog','category','a.html')) &&
+          !hasOwnProperty(files, path.join('category','b.html'));
 
-        if (validity) done();
+        test(validity).equals(true)
+        done()
       });
     });
   });
