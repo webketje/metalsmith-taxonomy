@@ -39,8 +39,7 @@
     "lib/taxonomy-set.js"
   ],
   "dependencies": {
-    "debug": "^4.3.1",
-    "micromatch": "^4.0.4"
+    "debug": "^4.3.1"
   },
   "devDependencies": {
     "auto-changelog": "^2.4.0",
@@ -51,13 +50,12 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.0.0",
-    "metalsmith": "^2.3.0",
     "nyc": "^15.1.0",
     "ospec": "^4.1.6",
     "prettier": "^2.7.1",
     "release-it": "^15.4.1"
   },
   "peerDependencies": {
-    "metalsmith": "^2.3.0"
+    "metalsmith": "^2.5.0"
   }
 }

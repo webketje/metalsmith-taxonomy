@@ -19,14 +19,14 @@ test.spec('metalsmith-taxonomy', function () {
       instance.use(taxonomy()).process(function (err) {
         if (err) throw err;
 
-        const metadata = this.metadata();
+        const metadata = instance.metadata();
         const validity =
           !(err && err.prototype !== Error) &&
           metadata.taxonomies.category.a.concat(metadata.taxonomies.category.b).length === 3 &&
           Object.keys(metadata.taxonomies).join(',') === 'category,tags';
 
-        test(validity).equals(true)
-        done()
+        test(validity).equals(true);
+        done();
       });
     });
 
@@ -34,16 +34,16 @@ test.spec('metalsmith-taxonomy', function () {
       instance.use(taxonomy({ namespace: 'blog' })).process(function (err, files) {
         if (err) throw err;
 
-        const metadata = this.metadata();
+        const metadata = instance.metadata();
         const validity =
           !(err && err.prototype !== Error) &&
           metadata.taxonomies.blog.category.a.concat(metadata.taxonomies.blog.category.b).length === 3 &&
           Object.keys(metadata.taxonomies.blog).join(',') === 'category,tags' &&
-          hasOwnProperty(files, path.join('blog','category','a.html')) &&
-          !hasOwnProperty(files, path.join('category','b.html'));
+          hasOwnProperty(files, path.join('blog', 'category', 'a.html')) &&
+          !hasOwnProperty(files, path.join('category', 'b.html'));
 
-        test(validity).equals(true)
-        done()
+        test(validity).equals(true);
+        done();
       });
     });
   });
@@ -55,7 +55,8 @@ test.spec('metalsmith-taxonomy', function () {
     let files = {};
 
     test.before(function (done) {
-      Metalsmith(__dirname)
+      const instance = Metalsmith(__dirname);
+      instance
         .source('mocks')
         .destination('test-build')
         .ignore('laptops')
@@ -76,7 +77,7 @@ test.spec('metalsmith-taxonomy', function () {
         .process(function (err, fileObjects) {
           if (err) throw err;
           files = fileObjects;
-          metadata = this.metadata();
+          metadata = instance.metadata();
           taxonomies = metadata.taxonomies;
           categories = metadata.taxonomies.categories;
           done();
@@ -145,7 +146,8 @@ test.spec('metalsmith-taxonomy', function () {
     let blog = {};
 
     test.before(function (done) {
-      Metalsmith(__dirname)
+      const instance = Metalsmith(__dirname);
+      instance
         .source('mocks')
         .destination('dist')
         .use(
@@ -172,7 +174,7 @@ test.spec('metalsmith-taxonomy', function () {
         )
         .process(function (err, filelist) {
           if (err) throw err;
-          metadata = this.metadata();
+          metadata = instance.metadata();
           taxonomies = metadata.taxonomies;
           blog = taxonomies.blog;
           categories = taxonomies.blog.categories;
