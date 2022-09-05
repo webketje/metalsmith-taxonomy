@@ -35,27 +35,27 @@
     "lib": "./lib"
   },
   "files": [
-    "/lib/index.js",
-    "/lib/taxonomy-set.js"
+    "lib/index.js",
+    "lib/taxonomy-set.js"
   ],
   "dependencies": {
     "debug": "^4.3.1",
     "micromatch": "^4.0.4"
   },
   "devDependencies": {
-    "auto-changelog": "^2.3.0",
+    "auto-changelog": "^2.4.0",
     "coveralls": "^3.1.1",
-    "eslint": "^8.5.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-config-standard": "^16.0.3",
-    "eslint-plugin-import": "^2.25.3",
+    "eslint": "^8.23.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.0.0",
     "metalsmith": "^2.3.0",
     "nyc": "^15.1.0",
-    "ospec": "*",
-    "prettier": "^2.5.1",
-    "release-it": "^14.11.8"
+    "ospec": "^4.1.6",
+    "prettier": "^2.7.1",
+    "release-it": "^15.4.1"
   },
   "peerDependencies": {
     "metalsmith": "^2.3.0"
