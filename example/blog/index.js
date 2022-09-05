@@ -1,6 +1,6 @@
 const metalsmith = require('metalsmith')(__dirname);
 const devserver = require('metalsmith-express')();
-const markdown = require('metalsmith-markdown')();
+const markdown = require('@metalsmith/markdown')();
 const taxonomy = require('metalsmith-taxonomy')({
   pattern: 'pages/posts/*.{md,html}',
   pages: ['index', 'taxonomy', 'term'],
@@ -31,7 +31,7 @@ const filemetadata = require('metalsmith-filemetadata')([
   }
 ]);
 
-const layouts = require('metalsmith-layouts')({
+const layouts = require('@metalsmith/layouts')({
   directory: 'src/layouts',
   default: 'default.hbs',
   pattern: '**/*.{md,html}',
@@ -50,11 +50,11 @@ const layouts = require('metalsmith-layouts')({
   }
 });
 
-const collections = require('metalsmith-collections')({
+const collections = require('@metalsmith/collections')({
   posts: 'pages/posts/*.{md,html}'
 });
 
-const permalinks = require('metalsmith-permalinks')({
+const permalinks = require('@metalsmith/permalinks')({
   linksets: [
     {
       match: { collection: 'posts' },

@@ -25,17 +25,17 @@ const filemetadata = require('metalsmith-filemetadata')([
   }
 ]);
 
-const layouts = require('metalsmith-layouts')({
+const layouts = require('@metalsmith/layouts')({
   directory: 'layouts',
   default: 'license.hbs',
   pattern: '**/*.html'
 });
 
-const collections = require('metalsmith-collections')({
+const collections = require('@metalsmith/collections')({
   licenses: '*.yml'
 });
 
-const permalinks = require('metalsmith-permalinks')({
+const permalinks = require('@metalsmith/permalinks')({
   linksets: [
     {
       match: { collection: 'licenses' },

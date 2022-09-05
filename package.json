@@ -34,7 +34,8 @@
   },
   "directories": {
     "test": "./tests",
-    "lib": "./lib"
+    "lib": "./lib",
+    "example": "./example"
   },
   "files": [
     "lib/index.js",
