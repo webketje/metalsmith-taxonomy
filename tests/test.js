@@ -1,21 +1,23 @@
-const test = require('ospec');
+/* eslint-env node,mocha */
+
 const Metalsmith = require('metalsmith');
 const taxonomy = require('../lib');
+const assert = require('assert');
 const path = require('path');
 const hasOwnProperty = function (target, prop) {
   return Object.prototype.hasOwnProperty.call(target, prop);
 };
 
-test.spec('metalsmith-taxonomy', function () {
-  test.specTimeout(500);
-  test.spec('Signature', function () {
+describe('metalsmith-taxonomy', function () {
+  this.timeout(500);
+  describe('Signature', function () {
     let instance;
 
-    test.beforeEach(function () {
+    this.beforeEach(function () {
       instance = Metalsmith(__dirname).source('mocks').destination('dist').ignore('laptops');
     });
 
-    test('Should support super-simple parameter-less instantiation', function (done) {
+    it('Should support super-simple parameter-less instantiation', function (done) {
       instance.use(taxonomy()).process(function (err) {
         if (err) throw err;
 
@@ -25,12 +27,12 @@ test.spec('metalsmith-taxonomy', function () {
           metadata.taxonomies.category.a.concat(metadata.taxonomies.category.b).length === 3 &&
           Object.keys(metadata.taxonomies).join(',') === 'category,tags';
 
-        test(validity).equals(true);
+        assert(validity);
         done();
       });
     });
 
-    test('Should support namespace parameter', function (done) {
+    it('Should support namespace parameter', function (done) {
       instance.use(taxonomy({ namespace: 'blog' })).process(function (err, files) {
         if (err) throw err;
 
@@ -42,19 +44,19 @@ test.spec('metalsmith-taxonomy', function () {
           hasOwnProperty(files, path.join('blog', 'category', 'a.html')) &&
           !hasOwnProperty(files, path.join('category', 'b.html'));
 
-        test(validity).equals(true);
+        assert(validity);
         done();
       });
     });
   });
 
-  test.spec('Single taxonomy', function () {
+  describe('Single taxonomy', function () {
     let metadata = {};
     let categories = [];
     let taxonomies = {};
     let files = {};
 
-    test.before(function (done) {
+    this.beforeAll(function (done) {
       const instance = Metalsmith(__dirname);
       instance
         .source('mocks')
@@ -84,13 +86,13 @@ test.spec('metalsmith-taxonomy', function () {
         });
     });
 
-    test('taxonomy termset property supports key match in file-metadata', function () {
+    it('taxonomy termset property supports key match in file-metadata', function () {
       const validity = !!(Object.keys(categories).length === 2 && categories.a && categories.b);
 
-      test(validity).equals(true);
+      assert(validity);
     });
 
-    test('taxonomy termset property value supports nested-key file-metadata lookup', function () {
+    it('taxonomy termset property value supports nested-key file-metadata lookup', function () {
       const validity =
         taxonomies.keywords &&
         Object.keys(taxonomies.keywords).length === 2 &&
@@ -99,10 +101,10 @@ test.spec('metalsmith-taxonomy', function () {
         taxonomies.keywords.two &&
         taxonomies.keywords.two.length === 1;
 
-      test(validity).equals(true);
+      assert(validity);
     });
 
-    test('taxonomy termset property value supports function value', function () {
+    it('taxonomy termset property value supports function value', function () {
       const validity =
         taxonomies.categoryAlias &&
         Object.keys(taxonomies.categoryAlias).length === 2 &&
@@ -111,41 +113,41 @@ test.spec('metalsmith-taxonomy', function () {
         taxonomies.categoryAlias.a &&
         taxonomies.categoryAlias.a.length === 1;
 
-      test(validity).equals(true);
+      assert(validity);
     });
 
-    test('taxonomy term metadata supports both string and array value', function () {
+    it('taxonomy term metadata supports both string and array value', function () {
       const validity = categories.a.length === 2 && categories.b.length === 1;
 
-      test(validity).equals(true);
+      assert(validity);
     });
 
-    test('Index, taxonomy & term pages get a path property identical to their key in the files object', function () {
+    it('Index, taxonomy & term pages get a path property identical to their key in the files object', function () {
       const generatedPages = (key) => !!files[key].type;
       const paths = Object.keys(files)
         .filter(generatedPages)
         .map((key) => key === files[key].path);
 
-      test(paths.indexOf(false)).equals(-1);
+      assert.strictEqual(paths.indexOf(false), -1);
     });
 
-    test('Generated pages should merge metadata with existing pages (if any)', () => {
+    it('Generated pages should merge metadata with existing pages (if any)', () => {
       const file = files['categories.html'];
       const valid =
         file.test === 'test' && file.taxonomy === 'categories' && file.contents.toString().trim() === 'Content';
 
-      test(valid).equals(true);
+      assert(valid);
     });
   });
 
-  test.spec('Multiple taxonomies', function () {
+  describe('Multiple taxonomies', function () {
     let metadata = {};
     let categories = [];
     let taxonomies = {};
     let laptops = {};
     let blog = {};
 
-    test.before(function (done) {
+    this.beforeAll(function (done) {
       const instance = Metalsmith(__dirname);
       instance
         .source('mocks')
@@ -183,19 +185,19 @@ test.spec('metalsmith-taxonomy', function () {
         });
     });
 
-    test('taxonomy termset can be an array of strings matching file-metadata', function () {
+    it('taxonomy termset can be an array of strings matching file-metadata', function () {
       const validity = !!(Object.keys(laptops).length === 3 && laptops.screen && laptops.ram && laptops.processor);
 
-      test(validity).equals(true);
+      assert(validity);
     });
 
-    test('taxonomy termset property supports key match in file-metadata', function () {
+    it('taxonomy termset property supports key match in file-metadata', function () {
       const validity = !!(Object.keys(categories).length === 2 && categories.a && categories.b);
 
-      test(validity).equals(true);
+      assert(validity);
     });
 
-    test('taxonomy termset property value supports nested-key file-metadata lookup', function () {
+    it('taxonomy termset property value supports nested-key file-metadata lookup', function () {
       const validity =
         blog.keywords &&
         Object.keys(blog.keywords).length === 2 &&
@@ -204,10 +206,10 @@ test.spec('metalsmith-taxonomy', function () {
         blog.keywords.two &&
         blog.keywords.two.length === 1;
 
-      test(validity).equals(true);
+      assert(validity);
     });
 
-    test('taxonomy termset property value supports function value', function () {
+    it('taxonomy termset property value supports function value', function () {
       const validity =
         blog.categoryAlias &&
         Object.keys(blog.categoryAlias).length === 2 &&
@@ -216,13 +218,13 @@ test.spec('metalsmith-taxonomy', function () {
         blog.categoryAlias.a &&
         blog.categoryAlias.a.length === 1;
 
-      test(validity).equals(true);
+      assert(validity);
     });
 
-    test('taxonomy term metadata supports both string and array value', function () {
+    it('taxonomy term metadata supports both string and array value', function () {
       const validity = categories.a.length === 2 && categories.b.length === 1;
 
-      test(validity).equals(true);
+      assert(validity);
     });
   });
 });
