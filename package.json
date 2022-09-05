@@ -23,12 +23,14 @@
   },
   "main": "lib/index.js",
   "scripts": {
+    "coverage": "nyc report --reporter=text-lcov > ./coverage.info",
     "changelog": "auto-changelog -l false -u --ignore-commit-pattern '^((dev|chore|ci):|Release)'",
     "test": "nyc ospec",
     "format": "prettier --write .",
+    "format:check": "prettier --list-different .",
     "lint": "eslint .",
-    "release": "release-it",
-    "codecov": "nyc report --reporter=text-lcov > ./coverage.info && cat ./coverage.info | node_modules/coveralls/bin/coveralls.js"
+    "lint:check": "eslint --cache --fix-dry-run .",
+    "release": "release-it"
   },
   "directories": {
     "test": "./tests",
@@ -40,7 +42,6 @@
   ],
   "devDependencies": {
     "auto-changelog": "^2.4.0",
-    "coveralls": "^3.1.1",
     "eslint": "^8.23.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-standard": "^17.0.0",

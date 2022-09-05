@@ -4,7 +4,7 @@ Metalsmith plugin that organizes files into taxonomy trees in global metadata an
 
 [![metalsmith: plugin][metalsmith-badge]][metalsmith-url]
 [![npm: version][npm-badge]][npm-url]
-[![travis: build][ci-badge]][ci-url]
+[![ci: build][ci-badge]][ci-url]
 [![code coverage][codecov-badge]][codecov-url]
 [![license: LGPL-3.0][license-badge]][license-url]
 
@@ -186,17 +186,15 @@ The data available to metadata is a _reference_ to the items under `taxonomies[n
 so you could use [metalsmith-keymaster](https://github.com/MorganConrad/metalsmith-keymaster) or a custom plugin to sort the data:
 
 ```js
-metalsmith
-  .use(taxonomy)
-  .use(function(files, metalsmith) {
-    var taxonomies = metalsmith.metadata().taxonomies;
+metalsmith.use(taxonomy).use(function (files, metalsmith) {
+  var taxonomies = metalsmith.metadata().taxonomies;
 
-    Object.keys(taxonomies.tags).forEach(function(tagName) {
-      taxonomies.tags[tagName].sort(function(a, b) {
-        return a.order < b.order ? -1 : (a.order > b.order) ? 1 : 0;
-      };
+  Object.keys(taxonomies.tags).forEach(function (tagName) {
+    taxonomies.tags[tagName].sort(function (a, b) {
+      return a.order < b.order ? -1 : a.order > b.order ? 1 : 0;
     });
-  })
+  });
+});
 ```
 
 The example above shows how to sort all term collections under the `tag` taxonomy by an `order` property defined in each file's metadata.
@@ -320,8 +318,8 @@ Clone this repository and navigate to the [`example/licenses`](example/open-sour
 [6]: https://github.com/metalsmith/metalsmith-layouts 'metalsmith-layouts on Github'
 [npm-badge]: https://img.shields.io/npm/v/metalsmith-taxonomy
 [npm-url]: https://www.npmjs.com/package/metalsmith-taxonomy
-[ci-badge]: https://img.shields.io/travis/webketje/metalsmith-taxonomy
-[ci-url]: https://travis-ci.org/webketje/metalsmith-taxonomy
+[ci-badge]: https://github.com/metalsmith/metalsmith/actions/workflows/test.yml/badge.svg
+[ci-url]: https://github.com/metalsmith/metalsmith/actions/workflows/test.yml
 [license-badge]: https://img.shields.io/github/license/webketje/metalsmith-taxonomy
 [license-url]: https://choosealicense.com/licenses/lgpl-3.0/
 [codecov-badge]: https://img.shields.io/coveralls/github/webketje/metalsmith-taxonomy
