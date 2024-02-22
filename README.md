@@ -187,14 +187,14 @@ so you could use [metalsmith-keymaster](https://github.com/MorganConrad/metalsmi
 
 ```js
 metalsmith.use(taxonomy).use(function (files, metalsmith) {
-  var taxonomies = metalsmith.metadata().taxonomies;
+  var taxonomies = metalsmith.metadata().taxonomies
 
   Object.keys(taxonomies.tags).forEach(function (tagName) {
     taxonomies.tags[tagName].sort(function (a, b) {
-      return a.order < b.order ? -1 : a.order > b.order ? 1 : 0;
-    });
-  });
-});
+      return a.order < b.order ? -1 : a.order > b.order ? 1 : 0
+    })
+  })
+})
 ```
 
 The example above shows how to sort all term collections under the `tag` taxonomy by an `order` property defined in each file's metadata.
@@ -208,7 +208,7 @@ e.g. to specify a `layout` property to be used later in the chain by [metalsmith
 var taxonomy = require('metalsmith-taxonomy')({
   namespace: 'taxonomies',
   taxonomies: ['category', 'tags']
-});
+})
 
 var filemetadata = require('metalsmith-filemetadata')([
   {
@@ -223,15 +223,15 @@ var filemetadata = require('metalsmith-filemetadata')([
     pattern: 'taxonomies.html',
     metadata: { layout: 'taxonomy-index.hbs' }
   }
-]);
+])
 
 var layouts = require('metalsmith-layouts')({
   directory: 'src/layouts',
   default: 'default.hbs',
   pattern: '**/*.{md,html}'
-});
+})
 
-metalsmith.use(taxonomy).use(filemetadata).use(layouts);
+metalsmith.use(taxonomy).use(filemetadata).use(layouts)
 ```
 
 [metalsmith-default-values](https://github.com/metalsmith/metalsmith-default-values) works exactly the same as above.
@@ -244,11 +244,11 @@ You can use [metalsmith-permalinks][4] to move or nest taxonomy pages:
 var taxonomy = require('metalsmith-taxonomy')({
   pages: ['index', 'taxonomy', 'term'],
   taxonomies: ['category', 'tags']
-});
+})
 
 var collections = require('metalsmith-collections')({
   posts: 'posts/**/*.md'
-});
+})
 
 var permalinks = {
   linksets: [
@@ -273,9 +273,9 @@ var permalinks = {
       pattern: 'posts/:category'
     }
   ]
-};
+}
 
-metalsmith.use(taxonomy).use(collections).use(permalinks);
+metalsmith.use(taxonomy).use(collections).use(permalinks)
 ```
 
 with the example files from [Global metadata](#global-metadata) would result in a directory tree like:

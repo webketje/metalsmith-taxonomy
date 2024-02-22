@@ -1,2 +1,3 @@
 test/fixtures/**
+**/*.hbs
 package-lock.json

@@ -2,8 +2,8 @@ import { join } from 'path'
 
 function getProperty(keychain, root) {
   if (root && keychain.length) {
-    return getProperty(keychain, root[keychain.shift()]);
-  } else return root;
+    return getProperty(keychain, root[keychain.shift()])
+  } else return root
 }
 
 /**
@@ -40,16 +40,16 @@ const defaults = {
   pattern: '**/*.{md,html}',
   taxonomies: ['category', 'tags'],
   indexpath: function () {
-    return (this.namespace ? this.namespace : 'index') + '.html';
+    return (this.namespace ? this.namespace : 'index') + '.html'
   },
   taxonomypath: function (taxonomy) {
-    return join(this.namespace || '', `${taxonomy}.html`);
+    return join(this.namespace || '', `${taxonomy}.html`)
   },
   termpath: function (term, taxonomy) {
-    return join(this.namespace || '', taxonomy, `${term}.html`);
+    return join(this.namespace || '', taxonomy, `${term}.html`)
   },
   constructor: function TaxonomySet() {}
-};
+}
 
 /**
  * @param {string|Function} term
@@ -59,21 +59,21 @@ const defaults = {
 function taxonomyValueGetter(term) {
   if (typeof term === 'function') {
     return function (file, metadata) {
-      return term(file, metadata) || [];
-    };
+      return term(file, metadata) || []
+    }
   }
   if (typeof term === 'string') {
     if (term.indexOf('.') > -1) {
       return function (file) {
-        const values = getProperty(term.split('.'), file);
-        return values || [];
-      };
+        const values = getProperty(term.split('.'), file)
+        return values || []
+      }
     }
     return function (file) {
-      return file[term] || [];
-    };
+      return file[term] || []
+    }
   }
-  return [];
+  return []
 }
 
 /**
@@ -82,21 +82,21 @@ function taxonomyValueGetter(term) {
  * @returns {TaxonomySet}
  */
 export default function taxonomySet(params) {
-  params = Object.assign(Object.create(defaults), params || {});
+  params = Object.assign(Object.create(defaults), params || {})
 
   if (Array.isArray(params.taxonomies)) {
     params.taxonomies = params.taxonomies.reduce(function (obj, key) {
-      obj[key] = key;
-      return obj;
-    }, {});
+      obj[key] = key
+      return obj
+    }, {})
   }
 
   Object.keys(params.taxonomies).forEach(function (key) {
-    const term = params.taxonomies[key];
-    params.taxonomies[key] = taxonomyValueGetter(term);
-  });
+    const term = params.taxonomies[key]
+    params.taxonomies[key] = taxonomyValueGetter(term)
+  })
 
   return Object.assign(params, {
     basepath: params.namespace && params.namespace.split('.').join(',')
-  });
-};
+  })
+}
