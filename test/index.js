@@ -1,9 +1,13 @@
 /* eslint-env node,mocha */
+import { fileURLToPath } from 'url'
+import path from 'path'
 
-const Metalsmith = require('metalsmith');
-const taxonomy = require('../lib');
-const assert = require('assert');
-const path = require('path');
+import Metalsmith from 'metalsmith'
+import taxonomy from '../src/index.js'
+import assert from 'assert'
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+
 const hasOwnProperty = function (target, prop) {
   return Object.prototype.hasOwnProperty.call(target, prop);
 };

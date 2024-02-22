@@ -1,4 +1,4 @@
-const { join } = require('path');
+import { join } from 'path'
 
 function getProperty(keychain, root) {
   if (root && keychain.length) {
@@ -81,7 +81,7 @@ function taxonomyValueGetter(term) {
  * @param {TaxonomySetParams} [params=defaults]
  * @returns {TaxonomySet}
  */
-module.exports = function (params) {
+export default function taxonomySet(params) {
   params = Object.assign(Object.create(defaults), params || {});
 
   if (Array.isArray(params.taxonomies)) {

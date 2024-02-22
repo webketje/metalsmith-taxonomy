@@ -1,4 +1,4 @@
-const taxonomyRule = require('./taxonomy-set');
+import taxonomyRule from './taxonomy-set.js'
 
 function normalizePagesParam(param) {
   const defaults = ['term', 'taxonomy', 'index'];
@@ -132,4 +132,4 @@ function taxonomies(taxonomySets) {
   };
 }
 
-module.exports = taxonomies;
+export default taxonomies;

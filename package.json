@@ -18,10 +18,16 @@
     "tags"
   ],
   "author": "Kevin Van Lierde (https://webketje.com)",
+  "type": "module",
   "engines": {
     "node": ">=14.18.0"
   },
-  "main": "lib/index.js",
+  "main": "lib/index.cjs",
+  "module": "lib/index.js",
+  "exports": {
+    "import": "./lib/index.js",
+    "require": "./lib/index.cjs"
+  },
   "scripts": {
     "coverage": "npm test && c8 report --reporter=text-lcov > coverage.info",
     "changelog": "auto-changelog -u --commit-limit false --ignore-commit-pattern '^((dev|chore|ci):|Release)'",
@@ -30,7 +36,9 @@
     "format:check": "prettier --list-different \"**/*.{yml,md,js,json}\"",
     "lint": "eslint --fix .",
     "lint:check": "eslint --fix-dry-run .",
-    "release": "release-it"
+    "release": "release-it",
+    "build": "microbundle --target node -f cjs,esm --strict --generateTypes=false",
+    "prepack": "npm run build"
   },
   "directories": {
     "test": "./tests",
@@ -38,8 +46,8 @@
     "example": "./example"
   },
   "files": [
-    "lib/index.js",
-    "lib/taxonomy-set.js"
+    "src",
+    "lib"
   ],
   "devDependencies": {
     "auto-changelog": "^2.4.0",
@@ -49,6 +57,7 @@
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-n": "^16.6.2",
     "metalsmith": "^2.6.2",
+    "microbundle": "^0.15.1",
     "mocha": "^10.3.0",
     "prettier": "^3.2.5",
     "release-it": "^17.1.1"
