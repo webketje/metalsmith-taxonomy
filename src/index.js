@@ -46,24 +46,24 @@ const page = {
 };
 
 /**
+ * A Metalsmith plugin to organize files into taxonomy trees and auto-generate index pages for them
  * @param {import('./taxonomy-set').TaxonomySetParams|import('./taxonomy-set').TaxonomySetParams[]} taxonomySets
  * @returns {import('metalsmith').Plugin}
  */
-function taxonomies(taxonomySets) {
+function taxonomy(taxonomySets) {
   const singleRule = !Array.isArray(taxonomySets);
 
   if (singleRule) taxonomySets = [taxonomySets];
   taxonomySets = taxonomySets.map(taxonomyRule);
 
-  return function plugin(files, metalsmith, next) {
+  return function taxonomy(files, metalsmith, next) {
     const metadata = metalsmith.metadata();
-    const filepaths = Object.keys(files);
     const debug = metalsmith.debug('metalsmith-taxonomy');
 
     if (!metadata.taxonomies) metadata.taxonomies = {};
 
     taxonomySets.forEach(function (rule) {
-      const matchingFilepaths = metalsmith.match(rule.pattern, filepaths);
+      const matchingFilepaths = metalsmith.match(rule.pattern, Object.keys(files));
       let namespace = metadata.taxonomies;
 
       const pages = normalizePagesParam(rule.pages || true);
@@ -132,4 +132,4 @@ function taxonomies(taxonomySets) {
   };
 }
 
-export default taxonomies;
+export default taxonomy;
