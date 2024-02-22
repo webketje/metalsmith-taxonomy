@@ -1,5 +1,10 @@
-node_modules
-.nyc_output
-coverage.info
-dist
+npm-debug.log*
+.npm
 *.tgz
+.eslintcache
+coverage
+coverage.info
+test/fixtures/*/build
+node_modules
+lib/*
+!lib/*.d.ts

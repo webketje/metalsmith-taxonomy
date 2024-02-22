@@ -1,3 +1,2 @@
-dist
-*.hbs
-.nyc_output
+test/fixtures/**
+package-lock.json

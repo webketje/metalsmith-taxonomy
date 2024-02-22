@@ -14,7 +14,7 @@ describe('metalsmith-taxonomy', function () {
     let instance;
 
     this.beforeEach(function () {
-      instance = Metalsmith(__dirname).source('mocks').destination('dist').ignore('laptops');
+      instance = Metalsmith(__dirname).source('fixtures').ignore('laptops');
     });
 
     it('Should support super-simple parameter-less instantiation', function (done) {
@@ -59,7 +59,7 @@ describe('metalsmith-taxonomy', function () {
     this.beforeAll(function (done) {
       const instance = Metalsmith(__dirname);
       instance
-        .source('mocks')
+        .source('fixtures')
         .destination('test-build')
         .ignore('laptops')
         .use(
@@ -150,8 +150,7 @@ describe('metalsmith-taxonomy', function () {
     this.beforeAll(function (done) {
       const instance = Metalsmith(__dirname);
       instance
-        .source('mocks')
-        .destination('dist')
+        .source('fixtures')
         .use(
           taxonomy([
             {
