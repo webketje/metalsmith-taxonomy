@@ -1,22 +1,8 @@
-import taxonomyRule from './taxonomy-set.js'
-
-function normalizePagesParam(param) {
-  const defaults = ['term', 'taxonomy', 'index']
-
-  // handle array, filter out invalid page identifiers
-  if (Array.isArray(param)) {
-    return param.filter((pagetype) => defaults.includes(pagetype))
-  }
-  // handle bool shorthand; return defaults when pages:true, empty array when pages:false
-  if (!!param === param && !param) {
-    return []
-  }
-  // handle undefined & other invalid values
-  return defaults
-}
+import TaxonomySpec from './taxonomy-set.js'
+export { default as TaxonomySpec } from './taxonomy-set.js'
 
 const page = {
-  index: function (context) {
+  index(context) {
     return {
       contents: Buffer.from(''),
       type: 'taxonomy:index',
@@ -25,7 +11,7 @@ const page = {
       path: context.path
     }
   },
-  taxonomy: function (context) {
+  taxonomy(context) {
     return Object.assign(
       {
         contents: Buffer.from(''),
@@ -34,7 +20,7 @@ const page = {
       context
     )
   },
-  term: function (context) {
+  term(context) {
     return Object.assign(
       {
         contents: Buffer.from(''),
@@ -51,10 +37,11 @@ const page = {
  * @returns {import('metalsmith').Plugin}
  */
 function taxonomy(taxonomySets) {
-  const singleRule = !Array.isArray(taxonomySets)
+  const singlespec = !Array.isArray(taxonomySets)
 
-  if (singleRule) taxonomySets = [taxonomySets]
-  taxonomySets = taxonomySets.map(taxonomyRule)
+  if (singlespec) taxonomySets = [taxonomySets]
+  /** @type {import('./taxonomy-set.js').default[]} */
+  const specs = taxonomySets.map(TaxonomySpec.create)
 
   return function taxonomy(files, metalsmith, next) {
     const metadata = metalsmith.metadata()
@@ -62,21 +49,20 @@ function taxonomy(taxonomySets) {
 
     if (!metadata.taxonomies) metadata.taxonomies = {}
 
-    taxonomySets.forEach(function (rule) {
-      const matchingFilepaths = metalsmith.match(rule.pattern, Object.keys(files))
+    specs.forEach(function (spec) {
+      const matchingFilepaths = metalsmith.match(spec.pattern, Object.keys(files))
       let namespace = metadata.taxonomies
 
-      const pages = normalizePagesParam(rule.pages || true)
-      if (rule.namespace) {
-        namespace = metadata.taxonomies[rule.namespace] || {}
-        metadata.taxonomies[rule.namespace] = namespace
-        debug('Added taxonomy namespace "' + rule.namespace + '" at metadata.')
+      if (spec.namespace) {
+        namespace = metadata.taxonomies[spec.namespace] || {}
+        metadata.taxonomies[spec.namespace] = namespace
+        debug('Added taxonomy namespace "%s" at metadata.', spec.namespace)
       }
 
       let pageContext = {}
 
-      Object.keys(rule.taxonomies).forEach(function (taxonomyName) {
-        const taxonomyValues = rule.taxonomies[taxonomyName]
+      Object.keys(spec.taxonomies).forEach(function (taxonomyName) {
+        const taxonomyValues = spec.taxonomies[taxonomyName]
 
         namespace[taxonomyName] = {}
 
@@ -97,18 +83,18 @@ function taxonomy(taxonomySets) {
           taxonomies: namespace,
           taxonomy: taxonomyName,
           terms: Object.keys(namespace[taxonomyName]),
-          namespace: rule.namespace
+          namespace: spec.namespace
         }
 
-        if (pages && pages.includes('taxonomy')) {
-          const key = rule.taxonomypath(taxonomyName)
+        if (spec.pages.includes('taxonomy')) {
+          const key = spec.pagePath(taxonomyName)
           const fileObj = page.taxonomy(Object.assign({ path: key }, pageContext))
           files[key] = Object.assign(fileObj, files[key] || {})
         }
 
-        if (pages && pages.includes('term')) {
+        if (spec.pages.includes('term')) {
           Object.keys(namespace[taxonomyName]).forEach(function (term) {
-            const key = rule.termpath(term, taxonomyName)
+            const key = spec.pagePath(taxonomyName, term)
             const fileObj = page.term(Object.assign({ term, path: key }, pageContext))
             files[key] = Object.assign(fileObj, files[key] || {})
           })
@@ -117,13 +103,13 @@ function taxonomy(taxonomySets) {
         debug(
           'Added %s files to taxonomy "%s%s"',
           matchingFilepaths.length,
-          singleRule ? '' : `${rule.namespace}.`,
+          singlespec ? '' : `${spec.namespace}.`,
           taxonomyName
         )
       })
 
-      if (pages && pages.includes('index')) {
-        const key = rule.indexpath()
+      if (spec.pages.includes('index')) {
+        const key = spec.pagePath()
         const fileObj = page.index(Object.assign({ path: key }, pageContext))
         files[key] = Object.assign(fileObj, files[key] || {})
       }

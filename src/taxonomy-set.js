@@ -7,9 +7,7 @@ function getProperty(keychain, root) {
 }
 
 /**
- * @typedef TaxonomySetParams
- * @type Object
- *
+ * @typedef {Object} TaxonomySetParams
  * @property {string|string[]} pattern One or more glob patterns supported by [micromatch](https://github.com/micromatch/micromatch) for the files to include in this taxonomy set
  * @property {string} [namespace] Subkey in `metadata.taxonomies[namespace]` in which the taxonomy tree of this set will be stored.
  * @property {string[]|Object<string, string|function>} taxonomies An array containing all file metadata keys to use as taxonomies.
@@ -20,36 +18,6 @@ function getProperty(keychain, root) {
  * @property {boolean|string[]} [pages=true] An array with 1 or more of: `index`, `taxonomy`, `term` allows limiting the type of pages generated.
  * Pass `true` as a shorthand for *all*, `false` as a shorthand for *none*.
  */
-
-/**
- * @typedef TaxonomySet
- * @type Object
- *
- * @property {string|string[]} pattern
- * @property {string} namespace
- * @property {Object<string, function>} taxonomies
- * @property {boolean|string[]} [pages=true]
- */
-
-/**
- * @type {TaxonomySet}
- */
-const defaults = {
-  name: null,
-  namespace: null,
-  pattern: '**/*.{md,html}',
-  taxonomies: ['category', 'tags'],
-  indexpath: function () {
-    return (this.namespace ? this.namespace : 'index') + '.html'
-  },
-  taxonomypath: function (taxonomy) {
-    return join(this.namespace || '', `${taxonomy}.html`)
-  },
-  termpath: function (term, taxonomy) {
-    return join(this.namespace || '', taxonomy, `${term}.html`)
-  },
-  constructor: function TaxonomySet() {}
-}
 
 /**
  * @param {string|Function} term
@@ -76,27 +44,83 @@ function taxonomyValueGetter(term) {
   return []
 }
 
-/**
- * Normalize a taxonomy set
- * @param {TaxonomySetParams} [params=defaults]
- * @returns {TaxonomySet}
- */
-export default function taxonomySet(params) {
-  params = Object.assign(Object.create(defaults), params || {})
+/** @name TaxonomyNamespace */
+class TaxonomyNamespace {
+  /** @property {string|null} namespace */
+  namespace = null
 
-  if (Array.isArray(params.taxonomies)) {
-    params.taxonomies = params.taxonomies.reduce(function (obj, key) {
-      obj[key] = key
-      return obj
-    }, {})
+  /** @property {string|string[]} pattern */
+  pattern = '**/*.{md,html}'
+
+  /** @property {Object<string,Function>} taxonomies  */
+  taxonomies = {
+    tags: taxonomyValueGetter('tags'),
+    category: taxonomyValueGetter('category')
   }
 
-  Object.keys(params.taxonomies).forEach(function (key) {
-    const term = params.taxonomies[key]
-    params.taxonomies[key] = taxonomyValueGetter(term)
-  })
+  /** @property {'term'|'taxonomy'|'index'[]} pages */
+  pages = ['term', 'taxonomy', 'index']
 
-  return Object.assign(params, {
-    basepath: params.namespace && params.namespace.split('.').join(',')
-  })
+  pagesExtension = '.html'
+
+  constructor(options = {}) {
+    if (options.namespace) this.namespace = options.namespace
+    if (options.pattern) this.pattern = options.pattern
+    if (options.pages) this.pages = this.normalizePages(options.pages)
+    if (options.taxonomies) this.taxonomies = this.normalizeTaxonomies(options.taxonomies)
+  }
+  /**
+   * Normalize
+   * ```
+   * ['tags'] => { tags: 'tags' } => { tags: [Function:taxonomyValueGetter('tags')]}
+   * ```
+   * @param {string[]|Object<string, string|Function>} taxonomies 
+   */
+  normalizeTaxonomies(taxonomies) {
+    if (!taxonomies) taxonomies = ['category', 'tags']
+    if (Array.isArray(taxonomies)) {
+      taxonomies = taxonomies.reduce(function (all, taxonomy) {
+        all[taxonomy] = taxonomy
+        return all
+      }, {})
+    }
+
+    Object.keys(taxonomies).forEach(function (key) {
+      const term = taxonomies[key]
+      taxonomies[key] = taxonomyValueGetter(term)
+    })
+
+    return taxonomies
+  }
+
+  normalizePages(option) {
+    const defaults = this.pages
+  
+    // handle array, filter out invalid page identifiers
+    if (Array.isArray(option)) {
+      return option.filter((pagetype) => defaults.includes(pagetype))
+    }
+    // handle bool shorthand; return defaults when pages:true, empty array when pages:false
+    if (!!option === option && !option) return []
+  
+    // handle undefined & other invalid values
+    return defaults
+  }
+
+  pagePath(taxonomy, term) {
+    // term path
+    if (taxonomy && term) return join(this.namespace || '', taxonomy, `${term}${this.pagesExtension}`)
+
+    // taxonomy path
+    if (taxonomy) return join(this.namespace || '', `${taxonomy}${this.pagesExtension}`)
+
+    // namespace path
+    return (this.namespace ? this.namespace : 'index') + this.pagesExtension
+  }
 }
+
+TaxonomyNamespace.create = function(options) {
+  return new TaxonomyNamespace(options)
+}
+
+export default TaxonomyNamespace

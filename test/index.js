@@ -21,36 +21,24 @@ describe('metalsmith-taxonomy', function () {
       instance = Metalsmith(__dirname).source('fixtures').ignore('laptops')
     })
 
-    it('Should support super-simple parameter-less instantiation', function (done) {
-      instance.use(taxonomy()).process(function (err) {
-        if (err) throw err
-
-        const metadata = instance.metadata()
-        const validity =
-          !(err && err.prototype !== Error) &&
-          metadata.taxonomies.category.a.concat(metadata.taxonomies.category.b).length === 3 &&
-          Object.keys(metadata.taxonomies).join(',') === 'category,tags'
-
-        assert(validity)
-        done()
-      })
+    it('Should support super-simple parameter-less instantiation', async function () {
+      const files = await instance.use(taxonomy()).process()
+      const metadata = instance.metadata()
+      assert.deepStrictEqual(Object.keys(metadata.taxonomies), ['tags', 'category'])
+      assert.deepStrictEqual(metadata.taxonomies.category.a.map(f => f.title), ['post 1', 'post 2'])
+      assert.deepStrictEqual(metadata.taxonomies.category.b.map(f => f.title), ['post 1'])
+      return files
     })
 
-    it('Should support namespace parameter', function (done) {
-      instance.use(taxonomy({ namespace: 'blog' })).process(function (err, files) {
-        if (err) throw err
-
-        const metadata = instance.metadata()
-        const validity =
-          !(err && err.prototype !== Error) &&
-          metadata.taxonomies.blog.category.a.concat(metadata.taxonomies.blog.category.b).length === 3 &&
-          Object.keys(metadata.taxonomies.blog).join(',') === 'category,tags' &&
-          hasOwnProperty(files, path.join('blog', 'category', 'a.html')) &&
-          !hasOwnProperty(files, path.join('category', 'b.html'))
-
-        assert(validity)
-        done()
-      })
+    it('Should support namespace parameter', async function () {
+      const files = await instance.use(taxonomy({ namespace: 'blog', pages: ['term', 'index', 'taxonomy'] })).process()
+      const metadata = instance.metadata()
+      assert.ok(hasOwnProperty(files, path.join('blog', 'category', 'a.html')))
+      assert.ok(!hasOwnProperty(files, path.join('category', 'b.html')))
+      assert.deepStrictEqual(Object.keys(metadata.taxonomies.blog), ['tags', 'category'])
+      assert.deepStrictEqual(metadata.taxonomies.blog.category.a.map(f => f.title), ['post 1', 'post 2'])
+      assert.deepStrictEqual(metadata.taxonomies.blog.category.b.map(f => f.title), ['post 1'])
+      return files
     })
   })
 
@@ -60,9 +48,9 @@ describe('metalsmith-taxonomy', function () {
     let taxonomies = {}
     let files = {}
 
-    this.beforeAll(function (done) {
+    this.beforeAll(async function () {
       const instance = Metalsmith(__dirname)
-      instance
+      const fileObjects = await instance
         .source('fixtures')
         .destination('test-build')
         .ignore('laptops')
@@ -80,14 +68,11 @@ describe('metalsmith-taxonomy', function () {
             }
           })
         )
-        .process(function (err, fileObjects) {
-          if (err) throw err
-          files = fileObjects
-          metadata = instance.metadata()
-          taxonomies = metadata.taxonomies
-          categories = metadata.taxonomies.categories
-          done()
-        })
+        .process()
+      files = fileObjects
+      metadata = instance.metadata()
+      taxonomies = metadata.taxonomies
+      categories = metadata.taxonomies.categories
     })
 
     it('taxonomy termset property supports key match in file-metadata', function () {
